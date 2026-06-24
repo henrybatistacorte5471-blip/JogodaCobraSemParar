@@ -25,6 +25,13 @@ const MAX_ENEMIES = 4;
 const UPGRADE_TYPES = ['shield', 'turbo', 'double'];
 const EVENT_TYPES = ['fruitStorm', 'enemyRush', 'shieldRain', 'slowField'];
 
+// Variáveis para gestos de toque
+let touchStartX = 0;
+let touchStartY = 0;
+let touchEndX = 0;
+let touchEndY = 0;
+const SWIPE_THRESHOLD = 50; // pixels mínimos para registrar um swipe
+
 let snake = [];
 let direction = { x: 1, y: 0 };
 let nextDirection = { x: 1, y: 0 };
@@ -541,6 +548,103 @@ function alignDirection(x, y) {
   nextDirection = { x, y };
 }
 
+// ===== SUPORTE A GESTOS E TOQUE =====
+
+/**
+ * Detecta swipes no canvas para controlar a cobra
+ */
+function handleSwipe() {
+  const diffX = touchEndX - touchStartX;
+  const diffY = touchEndY - touchStartY;
+  const absDiffX = Math.abs(diffX);
+  const absDiffY = Math.abs(diffY);
+
+  // Só registra swipe se passou do threshold
+  if (absDiffX < SWIPE_THRESHOLD && absDiffY < SWIPE_THRESHOLD) {
+    return;
+  }
+
+  // Determina qual direção tem o maior movimento
+  if (absDiffX > absDiffY) {
+    // Swipe horizontal
+    if (diffX > 0) {
+      alignDirection(1, 0); // direita
+    } else {
+      alignDirection(-1, 0); // esquerda
+    }
+  } else {
+    // Swipe vertical
+    if (diffY > 0) {
+      alignDirection(0, 1); // baixo
+    } else {
+      alignDirection(0, -1); // cima
+    }
+  }
+}
+
+/**
+ * Inicia o rastreamento de toque
+ */
+canvas.addEventListener('touchstart', (event) => {
+  touchStartX = event.changedTouches[0].clientX;
+  touchStartY = event.changedTouches[0].clientY;
+}, false);
+
+/**
+ * Atualiza a posição final do toque
+ */
+canvas.addEventListener('touchmove', (event) => {
+  touchEndX = event.changedTouches[0].clientX;
+  touchEndY = event.changedTouches[0].clientY;
+}, false);
+
+/**
+ * Detecta o fim do swipe e alinha a direção
+ */
+canvas.addEventListener('touchend', (event) => {
+  handleSwipe();
+}, false);
+
+/**
+ * Melhora a responsividade dos botões de controle no mobile
+ * Adiciona feedback visual ao toque
+ */
+controlButtons.forEach((button) => {
+  button.addEventListener('touchstart', (e) => {
+    button.style.transform = 'scale(0.95)';
+    button.style.opacity = '0.8';
+  });
+
+  button.addEventListener('touchend', (e) => {
+    button.style.transform = 'scale(1)';
+    button.style.opacity = '1';
+  });
+
+  button.addEventListener('click', () => {
+    const action = button.dataset.action;
+    if (action === 'up') alignDirection(0, -1);
+    if (action === 'down') alignDirection(0, 1);
+    if (action === 'left') alignDirection(-1, 0);
+    if (action === 'right') alignDirection(1, 0);
+  });
+});
+
+/**
+ * Melhora responsividade dos botões secundários
+ */
+[startButton, pauseButton, restartButton, themeButton].forEach((button) => {
+  if (!button) return;
+  
+  button.addEventListener('touchstart', (e) => {
+    button.style.transform = 'scale(0.95)';
+  });
+
+  button.addEventListener('touchend', (e) => {
+    button.style.transform = 'scale(1)';
+  });
+});
+
+// Listeners de teclado (mantém suporte desktop)
 window.addEventListener('keydown', (event) => {
   const keysToBlock = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
   if (keysToBlock.includes(event.key)) {
@@ -558,16 +662,6 @@ window.addEventListener('keydown', (event) => {
   if (event.key.toLowerCase() === 'p' && running) {
     togglePause();
   }
-});
-
-controlButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    const action = button.dataset.action;
-    if (action === 'up') alignDirection(0, -1);
-    if (action === 'down') alignDirection(0, 1);
-    if (action === 'left') alignDirection(-1, 0);
-    if (action === 'right') alignDirection(1, 0);
-  });
 });
 
 startButton.addEventListener('click', () => {

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jogo da Cobrinha</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <h1>Jogo da Cobrinha</h1>
+        <p>Use as setas do teclado ou os botões para controlar a cobra.</p>
+      </div>
+      <div class="status-panel">
+        <div class="status-item">
+          <span>Pontuação</span>
+          <strong id="score">0</strong>
+        </div>
+        <div class="status-item">
+          <span>Recorde</span>
+          <strong id="highScore">0</strong>
+        </div>
+        <div class="status-item">
+          <span>Evento</span>
+          <strong id="eventStatus">Nenhum</strong>
+        </div>
+        <div class="status-item">
+          <span>Upgrade</span>
+          <strong id="activeUpgrade">Normal</strong>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <section class="game-card">
+        <div class="canvas-frame">
+          <canvas id="gameCanvas" width="600" height="600"></canvas>
+          <div class="overlay hidden" id="overlay">
+            <div class="overlay-card">
+              <h2 id="overlayTitle">Pronto?</h2>
+              <p id="overlayMessage">Pressione iniciar para começar uma nova partida.</p>
+              <button id="startButton" class="primary-button">Iniciar jogo</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div class="row">
+            <button data-action="up" class="control-button">&#8679;</button>
+          </div>
+          <div class="row">
+            <button data-action="left" class="control-button">&#8676;</button>
+            <button id="pauseButton" class="secondary-button">Pausar</button>
+            <button data-action="right" class="control-button">&#8677;</button>
+          </div>
+          <div class="row">
+            <button data-action="down" class="control-button">&#8681;</button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="info-card">
+        <div class="panel">
+          <h2>Configurações</h2>
+          <label class="field">
+            <span>Dificuldade</span>
+            <select id="difficultySelect">
+              <option value="170">Fácil</option>
+              <option value="120" selected>Médio</option>
+              <option value="80">Difícil</option>
+            </select>
+          </label>
+          <div class="button-group">
+            <button id="restartButton" class="secondary-button">Reiniciar</button>
+            <button id="themeButton" class="secondary-button">Tema</button>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Como jogar</h2>
+          <ul>
+            <li>Coma a maçã vermelha para crescer.</li>
+            <li>Evite bater nas paredes ou em si mesmo.</li>
+            <li>Inimigos se movem pelo mapa — não os toque.</li>
+            <li>Eventos aleatórios mudam o campo e trazem bônus.</li>
+            <li>Use o teclado ou os botões para controlar.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h2>Eventos e Upgrades</h2>
+          <ul>
+            <li><strong>Escudo:</strong> proteção temporária contra um impacto.</li>
+            <li><strong>Turbo:</strong> velocidade extra por alguns segundos.</li>
+            <li><strong>Dobro de pontos:</strong> frutas valem mais.</li>
+            <li><strong>Eventos:</strong> chuva de frutas, inimigos extras e zonas especiais.</li>
+          </ul>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

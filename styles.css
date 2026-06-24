@@ -1,0 +1,293 @@
+:root {
+  color-scheme: dark;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, rgba(56, 118, 255, 0.16), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(255, 96, 165, 0.12), transparent 25%),
+    #0d1220;
+  color: #eef2ff;
+  accent-color: #7c97ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  touch-action: none;
+}
+
+.app-shell {
+  width: min(1140px, 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  background: rgba(11, 17, 35, 0.86);
+  backdrop-filter: blur(14px);
+}
+
+.topbar h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.8rem, 2.4vw, 2.5rem);
+}
+
+.topbar p {
+  margin: 0;
+  max-width: 34rem;
+  color: #cbd5ff;
+}
+
+.status-panel {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 16px;
+}
+
+.status-item {
+  display: grid;
+  gap: 4px;
+  padding: 16px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+
+.status-item span {
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.status-item strong {
+  font-size: 1.7rem;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+}
+
+.game-card,
+.info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.canvas-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+  background: linear-gradient(180deg, rgba(35, 48, 80, 0.96), rgba(13, 18, 32, 0.96));
+  box-shadow: 0 24px 120px rgba(18, 24, 40, 0.35);
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  max-width: 760px;
+  aspect-ratio: 1 / 1;
+  max-height: min(76vh, 760px);
+  height: auto;
+  border-radius: 30px;
+  background: #0b1223;
+}
+
+.canvas-frame {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(9, 13, 26, 0.72);
+  z-index: 2;
+}
+
+.overlay.hidden {
+  display: none;
+}
+
+.overlay-card {
+  width: min(420px, calc(100% - 40px));
+  padding: 28px;
+  border-radius: 28px;
+  text-align: center;
+  background: rgba(11, 18, 40, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.28);
+}
+
+.overlay-card h2 {
+  margin: 0 0 14px;
+  font-size: 2rem;
+}
+
+.overlay-card p {
+  margin: 0 0 24px;
+  color: #b8c0ff;
+}
+
+button,
+select {
+  font: inherit;
+}
+
+button {
+  min-height: 48px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.primary-button {
+  background: linear-gradient(135deg, #6871ff, #51d6ff);
+  color: #fff;
+  box-shadow: 0 18px 35px rgba(86, 129, 255, 0.26);
+}
+
+.secondary-button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #dbeafe;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.controls {
+  display: grid;
+  gap: 16px;
+  justify-content: center;
+  padding: 18px 10px 24px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.control-button {
+  width: 76px;
+  height: 76px;
+  font-size: 1.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  color: #eef2ff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-card {
+  gap: 18px;
+}
+
+.panel {
+  padding: 24px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+}
+
+.panel h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+.field {
+  display: grid;
+  gap: 12px;
+}
+
+.field span {
+  color: #cbd5ff;
+}
+
+select {
+  width: 100%;
+  min-height: 48px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #eef2ff;
+  padding: 0 14px;
+}
+
+.button-group {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.panel ul {
+  margin: 0;
+  padding-left: 20px;
+  color: #cbd5ff;
+  gap: 10px;
+  display: grid;
+}
+
+.panel li {
+  line-height: 1.6;
+}
+
+@media (max-width: 960px) {
+  .main-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  body {
+    padding: 16px;
+  }
+
+  .topbar,
+  .panel,
+  .canvas-frame {
+    padding: 20px;
+  }
+
+  .controls {
+    padding: 14px 0 20px;
+  }
+
+  .control-button {
+    width: 60px;
+    height: 60px;
+  }
+}

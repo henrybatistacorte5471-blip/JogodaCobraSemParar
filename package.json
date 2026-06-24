@@ -1,0 +1,14 @@
+{
+  "name": "snake-game",
+  "version": "1.0.0",
+  "description": "Jogo da cobrinha em HTML, CSS e JavaScript para execução local via web.",
+  "private": true,
+  "devDependencies": {
+    "http-server": "^14.1.1"
+    
+  },
+  "scripts": {
+    "start": "http-server . -p 8000",
+    "serve": "npm start"
+  }
+}

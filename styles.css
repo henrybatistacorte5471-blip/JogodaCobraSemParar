@@ -25,8 +25,16 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
   padding: 24px;
+}
+
+canvas {
   touch-action: none;
+}
+
+button {
+  touch-action: manipulation;
 }
 
 .app-shell {
@@ -61,7 +69,7 @@ body {
 
 .status-panel {
   display: grid;
-  grid-template-columns: repeat(2, auto);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 16px;
 }
 
@@ -111,7 +119,7 @@ body {
   width: 100%;
   max-width: 760px;
   aspect-ratio: 1 / 1;
-  max-height: min(76vh, 760px);
+  max-height: min(68vh, 760px);
   height: auto;
   border-radius: 30px;
   background: #0b1223;
@@ -276,18 +284,59 @@ select {
     padding: 16px;
   }
 
+  .app-shell {
+    gap: 16px;
+  }
+
+  .topbar {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .status-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .status-item {
+    padding: 14px 16px;
+  }
+
   .topbar,
   .panel,
   .canvas-frame {
     padding: 20px;
   }
 
+  .canvas-frame {
+    margin: 0;
+  }
+
   .controls {
     padding: 14px 0 20px;
+    gap: 12px;
+  }
+
+  .row {
+    gap: 12px;
   }
 
   .control-button {
-    width: 60px;
-    height: 60px;
+    width: 68px;
+    height: 68px;
+    font-size: 1.9rem;
+  }
+
+  .panel {
+    padding: 18px;
+  }
+
+  .button-group {
+    display: grid;
+    gap: 12px;
+  }
+
+  .overlay-card {
+    padding: 22px;
   }
 }
